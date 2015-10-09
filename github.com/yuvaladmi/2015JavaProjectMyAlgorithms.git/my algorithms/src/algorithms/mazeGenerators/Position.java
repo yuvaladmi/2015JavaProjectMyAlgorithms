@@ -1,12 +1,18 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
+
 /**
  * This class present a position in the 3D array
  * 
  * @author Yuval Admi & Afek Ben Simon
  *
  */
-public class Position {
+public class Position implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3L;
     int x;
     int y;
     int z;

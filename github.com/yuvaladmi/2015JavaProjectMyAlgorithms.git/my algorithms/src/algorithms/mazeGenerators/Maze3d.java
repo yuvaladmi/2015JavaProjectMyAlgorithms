@@ -3,6 +3,7 @@ package algorithms.mazeGenerators;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,11 @@ import java.util.Arrays;
  * @author Yuval Admi & Afek Ben Simon
  *
  */
-public class Maze3d {
+public class Maze3d implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2L;
     int[][][] maze3d;
     int x, y, z;
     Position start;
@@ -54,14 +59,18 @@ public class Maze3d {
 	this.x = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 4)).getInt();
 	this.y = ByteBuffer.wrap(Arrays.copyOfRange(b, 4, 8)).getInt();
 	this.z = ByteBuffer.wrap(Arrays.copyOfRange(b, 8, 12)).getInt();
-	this.start = new Position(ByteBuffer.wrap(Arrays.copyOfRange(b, 12, 16)).getInt(), ByteBuffer.wrap(Arrays.copyOfRange(b, 16, 20)).getInt(), ByteBuffer.wrap(Arrays.copyOfRange(b, 20, 24)).getInt());
-	this.end = new Position(ByteBuffer.wrap(Arrays.copyOfRange(b, 24, 28)).getInt(), ByteBuffer.wrap(Arrays.copyOfRange(b, 28, 32)).getInt(), ByteBuffer.wrap(Arrays.copyOfRange(b, 32, 36)).getInt());
+	this.start = new Position(ByteBuffer.wrap(Arrays.copyOfRange(b, 12, 16)).getInt(),
+		ByteBuffer.wrap(Arrays.copyOfRange(b, 16, 20)).getInt(),
+		ByteBuffer.wrap(Arrays.copyOfRange(b, 20, 24)).getInt());
+	this.end = new Position(ByteBuffer.wrap(Arrays.copyOfRange(b, 24, 28)).getInt(),
+		ByteBuffer.wrap(Arrays.copyOfRange(b, 28, 32)).getInt(),
+		ByteBuffer.wrap(Arrays.copyOfRange(b, 32, 36)).getInt());
 	maze3d = new int[x][y][z];
-	int byteNum=36;
+	int byteNum = 36;
 	for (int i = 0; i < x; i++) {
 	    for (int j = 0; j < y; j++) {
 		for (int t = 0; t < z; t++) {
-		    maze3d[i][j][t] = (int)b[byteNum];
+		    maze3d[i][j][t] = (int) b[byteNum];
 		    byteNum++;
 		}
 	    }
@@ -413,6 +422,7 @@ public class Maze3d {
 	    System.out.println();
 	}
     }
+
     public boolean equals(Object obj) {
 	Maze3d temp = (Maze3d) obj;
 	if ((this.x != temp.getX()) || (this.y != temp.getY()) || (this.z != temp.getZ()))
@@ -432,5 +442,21 @@ public class Maze3d {
 	    }
 	}
 	return true;
+    }
+
+    @Override
+    public String toString() {
+	String maze = new String();
+	for (int i = 0; i < x; i++) {
+	    for (int j = 0; j < y; j++) {
+		for (int t = 0; t < z; t++) {
+		    maze = maze + "" + (maze3d[i][j][t]);
+		}
+		maze = maze + "\n";
+	    }
+	    maze = maze + "\n\n";
+	}
+	    return maze;
+
     }
 }

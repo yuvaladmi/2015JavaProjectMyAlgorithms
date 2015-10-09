@@ -1,6 +1,9 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.Stack;
+
+import algorithms.mazeGenerators.Position;
 
 /**
  * 
@@ -11,7 +14,11 @@ import java.util.Stack;
  * 
  *            The class Solution shows us the expected solution
  */
-public class Solution<T> {
+public class Solution<T> implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4L;
     public Stack<T> solution;
 
     /**
@@ -54,5 +61,22 @@ public class Solution<T> {
     public void print() {
 	while (!this.getSolution().isEmpty())
 	    System.out.print(solution.pop() + " ");
+    }
+    @Override
+    public String toString(){
+	String solutionString = new String();
+	while (!this.getSolution().isEmpty())
+	    solutionString+=(" "+solution.pop());
+	return solutionString;
+    }
+    @Override
+    public boolean equals(Object solution){
+	Solution<T> obj = (Solution<T>) solution;
+	Stack<T> firstStack = this.getSolution();
+	Stack<T> secondStack = obj.getSolution();
+	if(firstStack.equals(secondStack))
+	    return true;
+	return false;
+	
     }
 }
