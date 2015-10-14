@@ -136,7 +136,7 @@ public class Position implements Serializable {
 
     // override in order to print a position
     public String toString() {
-	return "{" + x + "," + y + "," + z + "}";
+	return  x + "," + y + "," + z;
     }
 
     @Override
